@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+  <head>
+      <% include ../partials/head %>
+  </head>
+  <body class="container">
+    <header>
+      <% include ../partials/header %>
+    </header>
+    <main>
+      <h1><%= title %></h1>
+      <p>Welcome to <%= title %></p>
+      <div class="jumbotron">
+        <table class="table">
+          <thead>
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">Date de Creation</th>
+              <th scope="col">Nom</th>
+              <th scope="col">Prix</th>
+            </tr>
+          </thead>
+          <tbody>
+          <% listItems.tab.forEach(function (item) { %>
+            <tr>
+              <% Object.keys(item).forEach(function (key) { %>
+                <td> <%= item[key] %> </td>
+              <% }) %>
+            </tr>
+          <% }) %>
+          </tbody>
+        </table>
+      </div>
+      <div class="jumbotron">
+        <form method="post">
+          <p>supprimer un élément par ID : </p>
+          <input type="number" name="supprID" value="0" />
+          <input type="submit" value="supprimer" />
+        </form>
+        <br/>
+        <form method="post">
+          <p>supprimer un élément par nom : </p>
+          <input type="text" name="supprNom" value="" />
+          <input type="submit" value="supprimer" />
+        </form>
+      </div>
+      <div class="jumbotron">
+        <form method="post">
+          <p>Ajouter un élément : </p>
+          <input type="text" name="addNom" value="" />
+          <input type="text" name="addPrix" value="" />
+          <input type="submit" value="ajouter" />
+        </form>
+      </div>
+    </main>
+    <footer>
+      <% include ../partials/footer %>
+    </footer>
+    <script>
+      var socket=io.connect('http://localhost:3000');
+		  socket.on('cnxOK', function(message) {
+			  //alert('message du serveur : '+message);
+			  //document.getElementById('yolo').innerHTML = message
+		  })
+    </script>
+  </body>
+</html>
